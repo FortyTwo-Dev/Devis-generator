@@ -1,4 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using iTextSharp.text;
@@ -96,6 +103,43 @@ namespace WinAppGenDevis{
             cell1.BorderColor = BaseColor.BLACK;
             table.AddCell(cell1);
 
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+
+            TextBox textBoxAmount1 = new TextBox();
+            TextBox textBoxPrice1 = new TextBox();
+
+
+            textBoxAmount1.AcceptsTab = true;
+            textBoxAmount1.Multiline = false;
+            textBoxPrice1.AcceptsTab = true;
+            textBoxPrice1.Multiline = false;
+
+            textBoxAmount1.ClientSize = new Size(195, 23);
+            textBoxAmount1.Location = new Point(302, 587);
+            Controls.Add(textBoxAmount1);
+            textBoxPrice1.ClientSize = new Size(190, 23);
+            textBoxPrice1.Location = new Point(506, 587);
+            Controls.Add(textBoxPrice1);
+            ResumeLayout(false);
+            textBoxAdd();
+        }
+
+        public void textBoxAdd()
+        {
+            int i = buttonAdd.Location.Y;
+            buttonAdd.Location = new Point(705, i+30);
+
+            TextBox textBoxProduct0 = new TextBox();
+            textBoxProduct0.AcceptsTab = true;
+            textBoxProduct0.Multiline = false;
+            
+            textBoxProduct0.ClientSize = new Size(280, 23);
+            textBoxProduct0.Location = new Point(12, i+30);
+            Controls.Add(textBoxProduct0);
+            
         }
     }
 }

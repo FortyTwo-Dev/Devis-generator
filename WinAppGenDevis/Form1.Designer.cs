@@ -180,8 +180,9 @@
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(29, 23);
             this.buttonAdd.TabIndex = 14;
-            this.buttonAdd.Text = "p";
+            this.buttonAdd.Text = "+";
             this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // buttondelete
             // 
@@ -190,7 +191,7 @@
             this.buttondelete.Name = "buttondelete";
             this.buttondelete.Size = new System.Drawing.Size(29, 23);
             this.buttondelete.TabIndex = 15;
-            this.buttondelete.Text = "m";
+            this.buttondelete.Text = "-";
             this.buttondelete.UseVisualStyleBackColor = true;
             // 
             // genDevis
