@@ -1,13 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
@@ -15,6 +6,7 @@ using Font = iTextSharp.text.Font;
 namespace WinAppGenDevis{
 
     public partial class genDevis : Form{
+        public int j = 0;
 
         public genDevis()
         {
@@ -70,7 +62,7 @@ namespace WinAppGenDevis{
             table.WidthPercentage = 100;
             addCellToTab("Nom du Produit", fontHeader, white, table);
             addCellToTab("Quantité", fontHeader, white, table);
-            addCellToTab("Prix", fontHeader, white, table);
+            addCellToTab("Prix (en €)", fontHeader, white, table);
 
 
             string[] infosProduct = new string[3];
@@ -118,9 +110,13 @@ namespace WinAppGenDevis{
 
         public void textBoxAdd()
         {
+            
+
             int i = buttonAdd.Location.Y;
             Dictionary<string, TextBox> GeneratedTextBoxes = new();
             buttonAdd.Location = new Point(705, i + 30);
+            
+
             void GenerateTextBox(string TextBoxName, string text, Point location, Point size)
             {
                 TextBox generated = new();
@@ -133,26 +129,31 @@ namespace WinAppGenDevis{
             }
             void textBoxAddProduct()
             {
-
-                GenerateTextBox("textBoxProduct0", "",new Point(12, i + 30), new Point(280, 23));
+                j++;
+                Convert.ToString(j);
+                GenerateTextBox("textBoxProduct"+j, "",new Point(12, i + 30), new Point(284, 23));
 
             }
             void textBoxAddAmount()
             {
-
-                GenerateTextBox("textBoxAmount0", "", new Point(506, i + 30), new Point(189, 23));
+                j++;
+                Convert.ToString(j);
+                GenerateTextBox("textBoxAmount0", "", new Point(506, i + 30), new Point(193, 23));
 
             }
             void textBoxAddPrice()
             {
-
-                GenerateTextBox("textBoxPrice0", "", new Point(302, i + 30), new Point(194, 23));
+                j++;
+                Convert.ToString(j);
+                GenerateTextBox("textBoxPrice0", "", new Point(302, i + 30), new Point(198, 23));
 
             }
 
             textBoxAddProduct();
             textBoxAddAmount();
             textBoxAddPrice();
+
+            Console.WriteLine(GeneratedTextBoxes);
 
             buttonDelete.Location = new Point(740, i+30);
         }
