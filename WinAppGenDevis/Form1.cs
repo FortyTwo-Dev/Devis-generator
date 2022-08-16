@@ -12,8 +12,15 @@ namespace WinAppGenDevis{
         {
 
             InitializeComponent();
-
-            buttonDelete.Visible = false;
+            if (j == 0)
+            {
+                buttonDelete.Visible = false;
+            }
+            else
+            {
+                buttonDelete.Visible = true;
+            }
+            
             
         }
 
@@ -117,7 +124,7 @@ namespace WinAppGenDevis{
             Dictionary<string, TextBox> GeneratedTextBoxes = new();
             buttonAdd.Location = new Point(705, i + 30);
 
-            if (i <= 556)
+            if (j == 0)
             {
                 buttonDelete.Visible = false;
             }
@@ -125,6 +132,7 @@ namespace WinAppGenDevis{
             {
                 buttonDelete.Visible = true;
             }
+
 
             void GenerateTextBox(string TextBoxName, string text, Point location, Point size)
             {
@@ -148,7 +156,6 @@ namespace WinAppGenDevis{
                 
                 Convert.ToString(j);
                 GenerateTextBox("textBoxAmount" + j, "", new Point(506, i + 30), new Point(193, 23));
-
             }
             void textBoxAddPrice()
             {
@@ -162,15 +169,13 @@ namespace WinAppGenDevis{
             textBoxAddAmount();
             textBoxAddPrice();
 
-            Console.WriteLine(GeneratedTextBoxes);
-
             buttonDelete.Location = new Point(740, i+30);
 
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            
+            j--;
         }
     }
 }
