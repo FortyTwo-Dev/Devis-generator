@@ -16,7 +16,8 @@ namespace WinAppGenDevis{
 
     public partial class genDevis : Form{
 
-        public genDevis(){
+        public genDevis()
+        {
 
             InitializeComponent();
 
@@ -24,7 +25,8 @@ namespace WinAppGenDevis{
 
         private void label1_Click(object sender, EventArgs e){}
 
-        private void buttonGenDevis_Click(object sender, EventArgs e){
+        private void buttonGenDevis_Click(object sender, EventArgs e)
+        {
 
             GeneratePDF();
 
@@ -65,8 +67,8 @@ namespace WinAppGenDevis{
             PdfPTable table = new PdfPTable(3);
             table.WidthPercentage = 100;
             addCellToTab("Nom du Produit", fontHeader, white, table);
-            addCellToTab("quantité", fontHeader, white, table);
-            addCellToTab("prix", fontHeader, white, table);
+            addCellToTab("Quantité", fontHeader, white, table);
+            addCellToTab("Prix", fontHeader, white, table);
 
 
             string[] infosProduct = new string[3];
@@ -74,7 +76,8 @@ namespace WinAppGenDevis{
             infosProduct[1] = textBoxAmount.Text;
             infosProduct[2] = textBoxPrice.Text;
 
-            foreach(string info in infosProduct) {
+            foreach (string info in infosProduct)
+            {
 
                 PdfPCell cell = new PdfPCell(new Phrase(info));
                 cell.BackgroundColor = grey;
@@ -95,7 +98,8 @@ namespace WinAppGenDevis{
             Process.Start(@"cmd.exe ", @"/c" + outFile);
         }
          
-        public void addCellToTab(string str, Font font, BaseColor color, PdfPTable table) {
+        public void addCellToTab(string str, Font font, BaseColor color, PdfPTable table)
+        {
 
             PdfPCell cell1 = new PdfPCell(new Phrase(str, font));
             cell1.BackgroundColor = color;
@@ -107,39 +111,56 @@ namespace WinAppGenDevis{
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-
-            TextBox textBoxAmount1 = new TextBox();
-            TextBox textBoxPrice1 = new TextBox();
-
-
-            textBoxAmount1.AcceptsTab = true;
-            textBoxAmount1.Multiline = false;
-            textBoxPrice1.AcceptsTab = true;
-            textBoxPrice1.Multiline = false;
-
-            textBoxAmount1.ClientSize = new Size(195, 23);
-            textBoxAmount1.Location = new Point(302, 587);
-            Controls.Add(textBoxAmount1);
-            textBoxPrice1.ClientSize = new Size(190, 23);
-            textBoxPrice1.Location = new Point(506, 587);
-            Controls.Add(textBoxPrice1);
-            ResumeLayout(false);
             textBoxAdd();
         }
 
         public void textBoxAdd()
         {
             int i = buttonAdd.Location.Y;
-            buttonAdd.Location = new Point(705, i+30);
 
-            TextBox textBoxProduct0 = new TextBox();
-            textBoxProduct0.AcceptsTab = true;
-            textBoxProduct0.Multiline = false;
-            
-            textBoxProduct0.ClientSize = new Size(280, 23);
-            textBoxProduct0.Location = new Point(12, i+30);
-            Controls.Add(textBoxProduct0);
-            
+            void textBoxAddProduct()
+            {
+                buttonAdd.Location = new Point(705, i + 30);
+
+                TextBox textBoxProduct0 = new TextBox();
+                textBoxProduct0.AcceptsTab = true;
+                textBoxProduct0.Multiline = false;
+
+                textBoxProduct0.ClientSize = new Size(280, 23);
+                textBoxProduct0.Location = new Point(12, i + 30);
+                Controls.Add(textBoxProduct0);
+                ResumeLayout(false);
+            }
+            void textBoxAddAmount()
+            {
+                TextBox textBoxAmount0 = new TextBox();
+
+                textBoxAmount0.AcceptsTab = true;
+                textBoxAmount0.Multiline = false;
+
+                textBoxAmount0.ClientSize = new Size(195, 23);
+                textBoxAmount0.Location = new Point(302, i+30);
+                Controls.Add(textBoxAmount0);
+                ResumeLayout(false);
+            }
+            void textBoxAddPrice()
+            {
+                TextBox textBoxPrice0 = new TextBox();
+
+                textBoxPrice0.AcceptsTab = true;
+                textBoxPrice0.Multiline = false;
+
+                textBoxPrice0.ClientSize = new Size(190, 23);
+                textBoxPrice0.Location = new Point(506, i+30);
+                Controls.Add(textBoxPrice0);
+                ResumeLayout(false);
+            }
+
+            textBoxAddProduct();
+            textBoxAddAmount();
+            textBoxAddPrice();
+
+            buttonDelete.Location = new Point(740, i+30);
         }
     }
 }

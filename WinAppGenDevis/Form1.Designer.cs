@@ -43,7 +43,7 @@
             this.labelPrice = new System.Windows.Forms.Label();
             this.buttonGenDevis = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttondelete = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelNewDevis
@@ -184,22 +184,22 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // buttondelete
+            // buttonDelete
             // 
-            this.buttondelete.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttondelete.Location = new System.Drawing.Point(740, 557);
-            this.buttondelete.Name = "buttondelete";
-            this.buttondelete.Size = new System.Drawing.Size(29, 23);
-            this.buttondelete.TabIndex = 15;
-            this.buttondelete.Text = "-";
-            this.buttondelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDelete.Location = new System.Drawing.Point(740, 557);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(29, 23);
+            this.buttonDelete.TabIndex = 15;
+            this.buttonDelete.Text = "-";
+            this.buttonDelete.UseVisualStyleBackColor = true;
             // 
             // genDevis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 751);
-            this.Controls.Add(this.buttondelete);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonGenDevis);
             this.Controls.Add(this.labelPrice);
@@ -239,6 +239,6 @@
         private Label labelPrice;
         private Button buttonGenDevis;
         private Button buttonAdd;
-        private Button buttondelete;
+        private Button buttonDelete;
     }
 }
