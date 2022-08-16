@@ -23,7 +23,7 @@ namespace WinAppGenDevis{
             
             
         }
-
+        //no use
         private void label1_Click(object sender, EventArgs e){}
 
         private void buttonGenDevis_Click(object sender, EventArgs e)
@@ -32,8 +32,6 @@ namespace WinAppGenDevis{
             GeneratePDF();
 
         }
-
-        
 
         public void GeneratePDF(){
 
@@ -72,8 +70,9 @@ namespace WinAppGenDevis{
             addCellToTab("Nom du Produit", fontHeader, white, table);
             addCellToTab("Quantité", fontHeader, white, table);
             addCellToTab("Prix (en €)", fontHeader, white, table);
-
-
+            addCellToTab("jj", fontHeader, grey, table);
+            addCellToTab("jj", fontHeader, grey, table);
+            addCellToTab("jj", fontHeader, grey, table);
             string[] infosProduct = new string[3];
             infosProduct[0] = textBoxNameOfProduct.Text;
             infosProduct[1] = textBoxAmount.Text;
@@ -90,6 +89,12 @@ namespace WinAppGenDevis{
 
             }
 
+            void addCellInTOArray()
+            {
+                
+            }
+
+            addCellInTOArray();
             document.Add(table);
             document.Add(new Phrase("\n"));
 
@@ -116,12 +121,13 @@ namespace WinAppGenDevis{
         {
             textBoxAdd();
         }
+        public Dictionary<string, TextBox> GeneratedTextBoxes = new();
 
         public void textBoxAdd()
         {
+            
             j++;
             int i = buttonAdd.Location.Y;
-            Dictionary<string, TextBox> GeneratedTextBoxes = new();
             buttonAdd.Location = new Point(705, i + 30);
 
             if (j == 0)
@@ -149,20 +155,21 @@ namespace WinAppGenDevis{
                 
                 Convert.ToString(j);
                 GenerateTextBox("textBoxProduct" + j, "",new Point(12, i + 30), new Point(284, 23));
-                Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j, (string)]);
+                Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j].Name);
             }
             void textBoxAddAmount()
             {
                 
                 Convert.ToString(j);
                 GenerateTextBox("textBoxAmount" + j, "", new Point(506, i + 30), new Point(193, 23));
+                Debug.WriteLine(GeneratedTextBoxes["textBoxAmount" + j].Name);
             }
             void textBoxAddPrice()
             {
                 
                 Convert.ToString(j);
-                GenerateTextBox("textBoxPrice0" + j, "", new Point(302, i + 30), new Point(198, 23));
-
+                GenerateTextBox("textBoxPrice" + j, "", new Point(302, i + 30), new Point(198, 23));
+                Debug.WriteLine(GeneratedTextBoxes["textBoxPrice" + j].Name);
             }
 
             textBoxAddProduct();
@@ -175,7 +182,31 @@ namespace WinAppGenDevis{
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
+            int i = buttonAdd.Location.Y;
+            buttonAdd.Location = new Point(705, i - 30);
+            buttonDelete.Location = new Point(740, i - 30);
+            Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j].Name);
+            Debug.WriteLine(GeneratedTextBoxes["textBoxAmount" + j].Name);
+            Debug.WriteLine(GeneratedTextBoxes["textBoxPrice" + j].Name);
+            GeneratedTextBoxes["textBoxProduct" + j].Dispose();
+            GeneratedTextBoxes["textBoxAmount" + j].Dispose();
+            GeneratedTextBoxes["textBoxPrice" + j].Dispose();
+
             j--;
+            if (j == 0)
+            {
+                buttonDelete.Visible = false;
+            }
+            else
+            {
+                buttonDelete.Visible = true;
+            }
         }
     }
 }
+/*
+ * dictionary
+ * j
+ * array
+ * 
+*/
