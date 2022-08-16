@@ -32,6 +32,8 @@ namespace WinAppGenDevis{
 
         }
 
+        
+
         public void GeneratePDF(){
 
             string outFile = Environment.CurrentDirectory + "/devis.pdf";
@@ -90,7 +92,7 @@ namespace WinAppGenDevis{
             document.Add(table);
             document.Add(new Phrase("\n"));
 
-            Paragraph p4 = new Paragraph("Total = " + int.Parse(textBoxPrice.Text) * int.Parse(textBoxAmount.Text) + "\n\n", fontTitle);
+            Paragraph p4 = new Paragraph("Total = " + double.Parse(textBoxPrice.Text) * double.Parse(textBoxAmount.Text) +  "\n\n", fontTitle);
             p4.Alignment = Element.ALIGN_RIGHT;
             document.Add(p4);
 
@@ -117,49 +119,35 @@ namespace WinAppGenDevis{
         public void textBoxAdd()
         {
             int i = buttonAdd.Location.Y;
-
+            Dictionary<string, TextBox> GeneratedTextBoxes = new();
+            buttonAdd.Location = new Point(705, i + 30);
+            void GenerateTextBox(string TextBoxName, string text, Point location, Point size)
+            {
+                TextBox generated = new();
+                generated.Name = TextBoxName;
+                generated.Location = location;
+                generated.Size = (Size)size;
+                generated.Text = text;
+                Controls.Add(generated);
+                GeneratedTextBoxes[TextBoxName] = generated;
+            }
             void textBoxAddProduct()
             {
-                buttonAdd.Location = new Point(705, i + 30);
 
-                TextBox textBoxProduct0 = new TextBox();
-                textBoxProduct0.AcceptsTab = true;
-                textBoxProduct0.Multiline = false;
+                GenerateTextBox("textBoxProduct0", "",new Point(12, i + 30), new Point(280, 23));
 
-                textBoxProduct0.ClientSize = new Size(280, 23);
-                textBoxProduct0.Location = new Point(12, i + 30);
-                Controls.Add(textBoxProduct0);
-                ResumeLayout(false);
-
-                Console.WriteLine(textBoxProduct0);
             }
             void textBoxAddAmount()
             {
-                TextBox textBoxAmount0 = new TextBox();
 
-                textBoxAmount0.AcceptsTab = true;
-                textBoxAmount0.Multiline = false;
+                GenerateTextBox("textBoxAmount0", "", new Point(506, i + 30), new Point(189, 23));
 
-                textBoxAmount0.ClientSize = new Size(195, 23);
-                textBoxAmount0.Location = new Point(302, i+30);
-                Controls.Add(textBoxAmount0);
-                ResumeLayout(false);
-
-                Console.WriteLine(textBoxAmount0);
             }
             void textBoxAddPrice()
             {
-                TextBox textBoxPrice0 = new TextBox();
 
-                textBoxPrice0.AcceptsTab = true;
-                textBoxPrice0.Multiline = false;
+                GenerateTextBox("textBoxPrice0", "", new Point(302, i + 30), new Point(194, 23));
 
-                textBoxPrice0.ClientSize = new Size(190, 23);
-                textBoxPrice0.Location = new Point(506, i+30);
-                Controls.Add(textBoxPrice0);
-                ResumeLayout(false);
-
-                Console.WriteLine(textBoxPrice0);
             }
 
             textBoxAddProduct();
