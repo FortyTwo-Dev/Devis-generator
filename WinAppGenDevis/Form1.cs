@@ -149,7 +149,7 @@ namespace WinAppGenDevis{
                 
                 Convert.ToString(j);
                 GenerateTextBox("textBoxProduct" + j, "",new Point(12, i + 30), new Point(284, 23));
-
+                Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j, (string)]);
             }
             void textBoxAddAmount()
             {
