@@ -193,6 +193,7 @@
             this.buttonDelete.TabIndex = 15;
             this.buttonDelete.Text = "-";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // genDevis
             // 
