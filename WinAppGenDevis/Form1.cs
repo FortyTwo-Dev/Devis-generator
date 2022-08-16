@@ -130,6 +130,7 @@ namespace WinAppGenDevis{
                 textBoxProduct0.Location = new Point(12, i + 30);
                 Controls.Add(textBoxProduct0);
                 ResumeLayout(false);
+                Console.WriteLine(textBoxProduct0);
             }
             void textBoxAddAmount()
             {
@@ -142,6 +143,7 @@ namespace WinAppGenDevis{
                 textBoxAmount0.Location = new Point(302, i+30);
                 Controls.Add(textBoxAmount0);
                 ResumeLayout(false);
+                Console.WriteLine(textBoxAmount0);
             }
             void textBoxAddPrice()
             {
@@ -154,6 +156,8 @@ namespace WinAppGenDevis{
                 textBoxPrice0.Location = new Point(506, i+30);
                 Controls.Add(textBoxPrice0);
                 ResumeLayout(false);
+
+                Console.WriteLine(textBoxPrice0);
             }
 
             textBoxAddProduct();
