@@ -6,26 +6,14 @@ using Font = iTextSharp.text.Font;
 namespace WinAppGenDevis{
 
     public partial class genDevis : Form{
-        public int j = 0;
 
         public genDevis()
         {
 
-            InitializeComponent();
-            if (j == 0)
-            {
-                buttonDelete.Visible = false;
-            }
-            else
-            {
-                buttonDelete.Visible = true;
-            }
-            
+           InitializeComponent();
             
         }
-        //no use
-        private void label1_Click(object sender, EventArgs e){}
-
+        
         private void buttonGenDevis_Click(object sender, EventArgs e)
         {
 
@@ -67,48 +55,45 @@ namespace WinAppGenDevis{
 
             PdfPTable table = new PdfPTable(3);
             table.WidthPercentage = 100;
-            addCellToTab("Nom du Produit", fontHeader, white, table);
-            addCellToTab("Quantité", fontHeader, white, table);
-            addCellToTab("Prix (en €)", fontHeader, white, table);
-            addCellToTab("jj", fontHeader, grey, table);
-            addCellToTab("jj", fontHeader, grey, table);
-            addCellToTab("jj", fontHeader, grey, table);
-            string[] infosProduct = new string[3];
-            infosProduct[0] = textBoxNameOfProduct.Text;
-            infosProduct[1] = textBoxAmount.Text;
-            infosProduct[2] = textBoxPrice.Text;
+            AddCellToTab("Nom du Produit", fontHeader, grey, table);
+            AddCellToTab("Quantité", fontHeader, grey, table);
+            AddCellToTab("Prix (en €)", fontHeader, grey, table);
 
-            foreach (string info in infosProduct)
+            for (int i = 0; i < listViewInfoProduct.Items.Count; i++)
             {
-
-                PdfPCell cell = new PdfPCell(new Phrase(info));
-                cell.BackgroundColor = grey;
-                cell.Padding = 7;
-                cell.BorderColor = black;
-                table.AddCell(cell);
-
+                AddCellToTab(listViewInfoProduct.Items[i].SubItems[0].Text, fontHeader, white, table);
+                AddCellToTab(listViewInfoProduct.Items[i].SubItems[1].Text, fontHeader, white, table);
+                AddCellToTab(listViewInfoProduct.Items[i].SubItems[2].Text, fontHeader, white, table);
             }
 
-            void addCellInTOArray()
-            {
-                
-            }
-
-            addCellInTOArray();
             document.Add(table);
             document.Add(new Phrase("\n"));
 
-            Paragraph p4 = new Paragraph("Total = " + double.Parse(textBoxPrice.Text) * double.Parse(textBoxAmount.Text) +  "\n\n", fontTitle);
+            Paragraph p4 = new Paragraph("Total = " + CalcTotal() +  "\n\n", fontTitle);
             p4.Alignment = Element.ALIGN_RIGHT;
             document.Add(p4);
 
             document.Close();
             Process.Start(@"cmd.exe ", @"/c" + outFile);
         }
-         
-        public void addCellToTab(string str, Font font, BaseColor color, PdfPTable table)
-        {
 
+        public double CalcTotal()
+        {
+            double amount = 0, price = 0, totalNet = 0;
+            for (int i = 0; i < listViewInfoProduct.Items.Count; i++)
+            {
+                amount += double.Parse(listViewInfoProduct.Items[i].SubItems[1].Text);
+                price += double.Parse(listViewInfoProduct.Items[i].SubItems[2].Text);
+
+                totalNet = totalNet + (amount * price);
+                amount = 0;
+                price = 0;
+            }
+            return totalNet;
+        }
+         
+        public static void AddCellToTab(string str, Font font, BaseColor color, PdfPTable table)
+        {
             PdfPCell cell1 = new PdfPCell(new Phrase(str, font));
             cell1.BackgroundColor = color;
             cell1.Padding = 7;
@@ -119,94 +104,93 @@ namespace WinAppGenDevis{
 
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            textBoxAdd();
+            double q = double.Parse(textBoxPrice.Text);
+            int p = int.Parse(textBoxAmount.Text);
+
+            double total = q * p;
+
+            ListViewItem item = new ListViewItem();
+
+            item.Text = textBoxNameOfProduct.Text;
+            item.SubItems.Add(textBoxAmount.Text);
+            item.SubItems.Add(textBoxPrice.Text);
+            item.SubItems.Add(total.ToString());
+
+            listViewInfoProduct.Items.Add(item);
         }
-        public Dictionary<string, TextBox> GeneratedTextBoxes = new();
 
-        public void textBoxAdd()
+        private void buttonDeleteBox_Click(object sender, EventArgs e)
         {
-            
-            j++;
-            int i = buttonAdd.Location.Y;
-            buttonAdd.Location = new Point(705, i + 30);
-
-            if (j == 0)
-            {
-                buttonDelete.Visible = false;
-            }
-            else
-            {
-                buttonDelete.Visible = true;
-            }
-
-
-            void GenerateTextBox(string TextBoxName, string text, Point location, Point size)
-            {
-                TextBox generated = new();
-                generated.Name = TextBoxName;
-                generated.Location = location;
-                generated.Size = (Size)size;
-                generated.Text = text;
-                Controls.Add(generated);
-                GeneratedTextBoxes[TextBoxName] = generated;
-            }
-            void textBoxAddProduct()
-            {
-                
-                Convert.ToString(j);
-                GenerateTextBox("textBoxProduct" + j, "",new Point(12, i + 30), new Point(284, 23));
-                Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j].Name);
-            }
-            void textBoxAddAmount()
-            {
-                
-                Convert.ToString(j);
-                GenerateTextBox("textBoxAmount" + j, "", new Point(506, i + 30), new Point(193, 23));
-                Debug.WriteLine(GeneratedTextBoxes["textBoxAmount" + j].Name);
-            }
-            void textBoxAddPrice()
-            {
-                
-                Convert.ToString(j);
-                GenerateTextBox("textBoxPrice" + j, "", new Point(302, i + 30), new Point(198, 23));
-                Debug.WriteLine(GeneratedTextBoxes["textBoxPrice" + j].Name);
-            }
-
-            textBoxAddProduct();
-            textBoxAddAmount();
-            textBoxAddPrice();
-
-            buttonDelete.Location = new Point(740, i+30);
-
+            textBoxNameOfProduct.Text = "";
+            textBoxAmount.Text = "0";
+            textBoxPrice.Text = "0";
         }
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            int i = buttonAdd.Location.Y;
-            buttonAdd.Location = new Point(705, i - 30);
-            buttonDelete.Location = new Point(740, i - 30);
-            Debug.WriteLine(GeneratedTextBoxes["textBoxProduct" + j].Name);
-            Debug.WriteLine(GeneratedTextBoxes["textBoxAmount" + j].Name);
-            Debug.WriteLine(GeneratedTextBoxes["textBoxPrice" + j].Name);
-            GeneratedTextBoxes["textBoxProduct" + j].Dispose();
-            GeneratedTextBoxes["textBoxAmount" + j].Dispose();
-            GeneratedTextBoxes["textBoxPrice" + j].Dispose();
-
-            j--;
-            if (j == 0)
+            if (listViewInfoProduct.SelectedItems.Count == 1)
             {
-                buttonDelete.Visible = false;
+                int selectedIndice = listViewInfoProduct.SelectedIndices[0];
+                listViewInfoProduct.Items[selectedIndice].Remove();
+            } 
+            else if (listViewInfoProduct.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selectionnez une ligne");
             }
             else
             {
-                buttonDelete.Visible = true;
+                MessageBox.Show("Selectionnez une seul ligne");
             }
+            
+        }
+        int indiceToEdit = -1;
+
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (indiceToEdit == -1)
+            {
+                if (listViewInfoProduct.SelectedItems.Count == 1)
+                {
+                    int selectedIndice = listViewInfoProduct.SelectedIndices[0];
+                    indiceToEdit = listViewInfoProduct.SelectedIndices[0];
+                    textBoxNameOfProduct.Text = listViewInfoProduct.Items[selectedIndice].SubItems[0].Text;
+                    textBoxAmount.Text = listViewInfoProduct.Items[selectedIndice].SubItems[1].Text;
+                    textBoxPrice.Text = listViewInfoProduct.Items[selectedIndice].SubItems[2].Text;
+
+                    buttonAdd.Enabled = false;
+                    buttonDelete.Enabled = false;
+                    buttonDeleteBox.Enabled = false;
+                    buttonEdit.Text = "Valider";
+                }
+                else if (listViewInfoProduct.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("Selectionnez une ligne");
+                }
+                else
+                {
+                    MessageBox.Show("Selectionnez une seul ligne");
+                }
+            } 
+            else
+            {
+                double q = double.Parse(textBoxPrice.Text);
+                int p = int.Parse(textBoxAmount.Text);
+
+                double total = q * p;
+
+                listViewInfoProduct.Items[indiceToEdit].SubItems[0].Text = textBoxNameOfProduct.Text;
+                listViewInfoProduct.Items[indiceToEdit].SubItems[1].Text = textBoxAmount.Text;
+                listViewInfoProduct.Items[indiceToEdit].SubItems[2].Text = textBoxPrice.Text;
+                listViewInfoProduct.Items[indiceToEdit].SubItems[3].Text = total.ToString();
+
+                buttonAdd.Enabled = true;
+                buttonDelete.Enabled = true;
+                buttonDeleteBox.Enabled = true;
+                buttonEdit.Text = "Editer";
+
+                indiceToEdit = -1;
+            }
+            
         }
     }
 }
-/*
- * dictionary
- * j
- * array
- * 
-*/
