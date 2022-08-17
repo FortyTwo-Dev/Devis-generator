@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(genDevis));
             this.labelNewDevis = new System.Windows.Forms.Label();
             this.labelCoordinates = new System.Windows.Forms.Label();
             this.textBoxCoordinates = new System.Windows.Forms.TextBox();
@@ -49,8 +50,9 @@
             this.columnHeaderProduct = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderAmount = new System.Windows.Forms.ColumnHeader();
             this.columnHeaderPrice = new System.Windows.Forms.ColumnHeader();
-            this.buttonDeleteBox = new System.Windows.Forms.Button();
             this.columnHeaderTotalQP = new System.Windows.Forms.ColumnHeader();
+            this.buttonDeleteBox = new System.Windows.Forms.Button();
+            this.saveFileDialogDevis = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // labelNewDevis
@@ -98,7 +100,7 @@
             this.textBoxCoordinateClient.Multiline = true;
             this.textBoxCoordinateClient.Name = "textBoxCoordinateClient";
             this.textBoxCoordinateClient.Size = new System.Drawing.Size(315, 120);
-            this.textBoxCoordinateClient.TabIndex = 4;
+            this.textBoxCoordinateClient.TabIndex = 3;
             // 
             // labelTitle
             // 
@@ -115,7 +117,7 @@
             this.textBoxTitle.Location = new System.Drawing.Point(12, 296);
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(248, 23);
-            this.textBoxTitle.TabIndex = 6;
+            this.textBoxTitle.TabIndex = 4;
             // 
             // labelProduct
             // 
@@ -132,21 +134,21 @@
             this.textBoxNameOfProduct.Location = new System.Drawing.Point(12, 386);
             this.textBoxNameOfProduct.Name = "textBoxNameOfProduct";
             this.textBoxNameOfProduct.Size = new System.Drawing.Size(284, 23);
-            this.textBoxNameOfProduct.TabIndex = 8;
+            this.textBoxNameOfProduct.TabIndex = 5;
             // 
             // textBoxPrice
             // 
             this.textBoxPrice.Location = new System.Drawing.Point(501, 386);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(198, 23);
-            this.textBoxPrice.TabIndex = 9;
+            this.textBoxPrice.TabIndex = 7;
             // 
             // textBoxAmount
             // 
             this.textBoxAmount.Location = new System.Drawing.Point(302, 386);
             this.textBoxAmount.Name = "textBoxAmount";
             this.textBoxAmount.Size = new System.Drawing.Size(193, 23);
-            this.textBoxAmount.TabIndex = 10;
+            this.textBoxAmount.TabIndex = 6;
             // 
             // labelAmount
             // 
@@ -174,7 +176,7 @@
             this.buttonGenDevis.Location = new System.Drawing.Point(263, 681);
             this.buttonGenDevis.Name = "buttonGenDevis";
             this.buttonGenDevis.Size = new System.Drawing.Size(205, 67);
-            this.buttonGenDevis.TabIndex = 13;
+            this.buttonGenDevis.TabIndex = 12;
             this.buttonGenDevis.Text = "Générer Le Devis";
             this.buttonGenDevis.UseVisualStyleBackColor = true;
             this.buttonGenDevis.Click += new System.EventHandler(this.buttonGenDevis_Click);
@@ -184,7 +186,7 @@
             this.buttonAdd.Location = new System.Drawing.Point(85, 690);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(90, 30);
-            this.buttonAdd.TabIndex = 15;
+            this.buttonAdd.TabIndex = 9;
             this.buttonAdd.Text = "Ajouter";
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
@@ -194,7 +196,7 @@
             this.buttonEdit.Location = new System.Drawing.Point(530, 690);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(90, 30);
-            this.buttonEdit.TabIndex = 16;
+            this.buttonEdit.TabIndex = 10;
             this.buttonEdit.Text = "Editer";
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
@@ -204,7 +206,7 @@
             this.buttonDelete.Location = new System.Drawing.Point(667, 690);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(90, 30);
-            this.buttonDelete.TabIndex = 17;
+            this.buttonDelete.TabIndex = 11;
             this.buttonDelete.Text = "Supprimer";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
@@ -238,20 +240,25 @@
             this.columnHeaderPrice.Text = "Prix";
             this.columnHeaderPrice.Width = 155;
             // 
+            // columnHeaderTotalQP
+            // 
+            this.columnHeaderTotalQP.Text = "Total";
+            this.columnHeaderTotalQP.Width = 135;
+            // 
             // buttonDeleteBox
             // 
             this.buttonDeleteBox.Location = new System.Drawing.Point(705, 386);
             this.buttonDeleteBox.Name = "buttonDeleteBox";
             this.buttonDeleteBox.Size = new System.Drawing.Size(83, 23);
-            this.buttonDeleteBox.TabIndex = 19;
+            this.buttonDeleteBox.TabIndex = 8;
             this.buttonDeleteBox.Text = "Effacer";
             this.buttonDeleteBox.UseVisualStyleBackColor = true;
             this.buttonDeleteBox.Click += new System.EventHandler(this.buttonDeleteBox_Click);
             // 
-            // columnHeaderTotalQP
+            // saveFileDialogDevis
             // 
-            this.columnHeaderTotalQP.Text = "Total";
-            this.columnHeaderTotalQP.Width = 135;
+            this.saveFileDialogDevis.Filter = "|*.pdf";
+            this.saveFileDialogDevis.Title = "emplacement du devis";
             // 
             // genDevis
             // 
@@ -277,6 +284,7 @@
             this.Controls.Add(this.textBoxCoordinates);
             this.Controls.Add(this.labelCoordinates);
             this.Controls.Add(this.labelNewDevis);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "genDevis";
             this.Text = "Generateur Devis";
             this.ResumeLayout(false);
@@ -309,5 +317,6 @@
         private ColumnHeader columnHeaderPrice;
         private Button buttonDeleteBox;
         private ColumnHeader columnHeaderTotalQP;
+        private SaveFileDialog saveFileDialogDevis;
     }
 }

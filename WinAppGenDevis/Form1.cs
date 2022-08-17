@@ -3,17 +3,20 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Font = iTextSharp.text.Font;
 
-namespace WinAppGenDevis{
+namespace WinAppGenDevis
+{
 
-    public partial class genDevis : Form{
+    public partial class genDevis : Form
+    {
+        public string path;
 
         public genDevis()
         {
 
-           InitializeComponent();
-            
+            InitializeComponent();
+
         }
-        
+
         private void buttonGenDevis_Click(object sender, EventArgs e)
         {
 
@@ -21,9 +24,17 @@ namespace WinAppGenDevis{
 
         }
 
-        public void GeneratePDF(){
+        public void GeneratePDF()
+        {
+            
+            DialogResult dialogResult = this.saveFileDialogDevis.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                path = this.saveFileDialogDevis.FileName;
+                
+            }
 
-            string outFile = Environment.CurrentDirectory + "/devis.pdf";
+            string outFile = path;
 
             Document document = new Document();
 
@@ -69,7 +80,7 @@ namespace WinAppGenDevis{
             document.Add(table);
             document.Add(new Phrase("\n"));
 
-            Paragraph p4 = new Paragraph("Total = " + CalcTotal() +  "\n\n", fontTitle);
+            Paragraph p4 = new Paragraph("Total = " + CalcTotal() + "\n\n", fontTitle);
             p4.Alignment = Element.ALIGN_RIGHT;
             document.Add(p4);
 
@@ -91,7 +102,7 @@ namespace WinAppGenDevis{
             }
             return totalNet;
         }
-         
+
         public static void AddCellToTab(string str, Font font, BaseColor color, PdfPTable table)
         {
             PdfPCell cell1 = new PdfPCell(new Phrase(str, font));
@@ -132,7 +143,7 @@ namespace WinAppGenDevis{
             {
                 int selectedIndice = listViewInfoProduct.SelectedIndices[0];
                 listViewInfoProduct.Items[selectedIndice].Remove();
-            } 
+            }
             else if (listViewInfoProduct.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Selectionnez une ligne");
@@ -141,7 +152,7 @@ namespace WinAppGenDevis{
             {
                 MessageBox.Show("Selectionnez une seul ligne");
             }
-            
+
         }
         int indiceToEdit = -1;
 
@@ -170,7 +181,7 @@ namespace WinAppGenDevis{
                 {
                     MessageBox.Show("Selectionnez une seul ligne");
                 }
-            } 
+            }
             else
             {
                 double q = double.Parse(textBoxPrice.Text);
@@ -190,7 +201,7 @@ namespace WinAppGenDevis{
 
                 indiceToEdit = -1;
             }
-            
+
         }
     }
 }
